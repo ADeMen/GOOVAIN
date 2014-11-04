@@ -19,7 +19,8 @@ Note: Need to have a Short Url domain (your.com). The short url domain does not 
 == Installation ==
 
 1. Upload archive contents to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
+2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Add you short url in Settings-> GooVain Settings 
 1. You're done!
 
 == Screenshots ==
