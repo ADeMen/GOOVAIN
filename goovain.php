@@ -9,6 +9,8 @@ Author URI: http://dementedsugar.com
 */
 function googl_shortlink( $url, $post_id = false ) {
 	global $post;
+	$VainURl = file_get_contents('goo_pref/goo_pref.txt', true);
+
 	if ( ! $post_id && $post ) $post_id = $post->ID;
 	elseif ( $post_id ) $post = get_post( $post_id );
 
@@ -16,7 +18,7 @@ function googl_shortlink( $url, $post_id = false ) {
 		return "";
 
 	$shortlink = $url;
-  	$shortlink =  str_replace( 'goo.gl/', 'unbnd.org/', $shortlink );
+  	$shortlink =  str_replace( 'goo.gl/', $VainURl, $shortlink );
 
 	if ( ( is_singular() || $post ) && ! is_front_page() ) {
 		$shortlink = get_post_meta( $post_id, '_googl_shortlink', true );
@@ -28,7 +30,7 @@ function googl_shortlink( $url, $post_id = false ) {
 
 		if ( $shortlink !== $url ) {
 			add_post_meta( $post_id, '_googl_shortlink', $shortlink, true );
-		  $shortlink =  str_replace( 'goo.gl/', 'unbnd.org/', $shortlink );
+		  $shortlink =  str_replace( 'goo.gl/', $VainURl, $shortlink );
 			return $shortlink;
 		}
 		else {
@@ -36,14 +38,14 @@ function googl_shortlink( $url, $post_id = false ) {
 		}
 	} elseif ( is_front_page() ) {
 		$shortlink = (string) get_option( '_googl_shortlink_home' );
-	  $shortlink =  str_replace( 'goo.gl/', 'unbnd.org/', $shortlink );
+	  $shortlink =  str_replace( 'goo.gl/', $VainURl, $shortlink );
 		if ( $shortlink )
 			return $shortlink;
 
 		$googl_shortlink = googl_shorten( home_url( '/' ) );
 		if ( $googl_shortlink !== $shortlink ) {
 			update_option( '_googl_shortlink_home', $googl_shortlink );
-		    	$googl_shortlink =  str_replace( 'goo.gl/', 'unbnd.org/', $googl_shortlink );
+		    	$googl_shortlink =  str_replace( 'goo.gl/', $VainURl, $googl_shortlink );
 			return $googl_shortlink;
 		} else {
 			return home_url( '/' );
@@ -53,6 +55,8 @@ function googl_shortlink( $url, $post_id = false ) {
 add_filter( 'get_shortlink', 'googl_shortlink', 9, 2 );
 
 function googl_shorten( $url ) {
+
+		$VainURl = file_get_contents('goo_pref/goo_pref.txt', true);
 	$result = wp_remote_post( 'https://www.googleapis.com/urlshortener/v1/url', array(
 		'body' => json_encode( array( 'longUrl' => esc_url_raw( $url ) ) ),
 		'headers' => array( 'Content-Type' => 'application/json' ),
@@ -64,7 +68,7 @@ function googl_shorten( $url ) {
 
 	$result = json_decode( $result['body'] );
 	$shortlink = $result->id;
-  	$shortlink =  str_replace( 'goo.gl/', 'unbnd.org/', $shortlink );
+  	$shortlink =  str_replace( 'goo.gl/', $VainURl, $shortlink );
 	if ( $shortlink )
 		return $shortlink;
 
@@ -79,9 +83,11 @@ add_filter( 'manage_edit-post_columns', 'googl_post_columns' );
 
 function googl_custom_columns( $column ) {
 	if ( 'shortlink' == $column ) {
+
+		$VainURl = file_get_contents('goo_pref/goo_pref.txt', true);
 	 
-	    $shorturl = wp_get_shortlink(); 
-	  	$shorturl =  str_replace( 'goo.gl/', 'unbnd.org/', $shorturl );
+	    	$shorturl = wp_get_shortlink(); 
+	  	$shorturl =  str_replace( 'goo.gl/', $VainURl, $shorturl );
 		$shorturl_caption = str_replace( 'http://', '', $shorturl );
 		$shorturl_info = str_replace( 'goo.gl/', 'goo.gl/info/', $shorturl );
 		printf( '<a href="%s">%s</a> (<a href="%s">info</a>)', esc_url( $shorturl ), esc_html( $shorturl_caption ), esc_url( $shorturl_info ) );
@@ -97,3 +103,5 @@ function googl_save_post( $post_ID, $post ) {
 	delete_post_meta( $post_ID, '_googl_shortlink' );
 }
 add_action( 'save_post', 'googl_save_post', 10, 2 );
+
+include 'goo_settings.php';
