@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: GooVain
-Plugin URI: http://dementedsugar.com/
+Plugin URI: https://github.com/ADeMen/
 Description: A simple Goo.gl URL + vanity shortener for WordPress .
 Author: Aaron DeMent
-Version: 1.0
+Version: 1.1
 Author URI: http://dementedsugar.com
 */
 function googl_shortlink( $url, $post_id = false ) {

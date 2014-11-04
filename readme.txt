@@ -1,6 +1,6 @@
 === GooVain ===
 Contributors: Aaron DeMent
-Tags: links, twitter, short, url, socialmedia, permalinks, redirect, trim, identi.ca, microblogging, shorturl, canonical, analytics
+Tags: links, twitter, short, url, socialmedia, permalinks, redirect, shorturl, goo.gl
 Requires at least: 3.0
 Tested up to: 4.0
 Stable tag: 1.0
@@ -9,9 +9,11 @@ Uses Google's URL shortener (Goo.gl) to create short links for your WordPress po
 
 == Description ==
 
-Google has launched a URL Shortener API (Goo.gl) - one of the fastest and most reliable URL shortners out there. This plugin creates goo.gl short URLs for your posts, which then could be changed to the desired vanity url and retrieved using the "Get Shortlink" button in your admin UI or the `wp_get_shortlink()` WordPress function. Goo.gl analytics also available! this also changes the link rel='shortlink’ in the document head and ads a column in the post list showing the short url as well.
+This plugin creates goo.gl short URLs for your posts, which then could be changed to the desired vanity url and retrieved using the "Get Shortlink" button in your admin UI or the `wp_get_shortlink()` WordPress function. This also changes the link rel='shortlink’ in the document head and ads a column in the post list showing the short url as well.
 
-This plugin does all this without storing any values in the database.
+This plugin does all this without storing any values in the database. Instead it writes the shorturl to a text file and retrieves from said text file.
+
+Note: Need to have a Short Url domain (your.com). The short url domain does not have to be pointed at the site or stored on the site, it just needs to be a valid domain.
 
 
 == Installation ==
