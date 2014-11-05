@@ -5,11 +5,11 @@ Requires at least: 3.0
 Tested up to: 4.0
 Stable tag: 1.0
 
-Uses Google's URL shortener (Goo.gl) to create short links for your WordPress posts, track analytics and allows for Vainity URL.
+Uses Google's URL shortener (Goo.gl) to create short links and convert to Vanity Urls never adding anything to the database.
 
 == Description ==
 
-This plugin creates goo.gl short URLs for your posts, which then could be changed to the desired vanity url and retrieved using the "Get Shortlink" button in your admin UI or the `wp_get_shortlink()` WordPress function. This also changes the link rel='shortlink’ in the document head and ads a column in the post list showing the short url as well.
+This plugin creates goo.gl short URLs for your posts, which then could be changed to the desired vanity url and retrieved using the "Get Shortlink" button in your admin UI or the `wp_get_shortlink()` WordPress function. This also changes the link rel='shortlink’ in the document head and adds a column in the post list showing the short url as well.
 
 This plugin does all this without storing any values in the database. Instead it writes the shorturl to a text file and retrieves from said text file.
 
@@ -25,8 +25,10 @@ Note: Need to have a Short Url domain (your.com). The short url domain does not 
 
 == Screenshots ==
 
-1. Shortened URLs
-2. Posts List and Analytics
+1. post edit page
+2. post list page
+3. Document head link
+4. wordpress settings page
 
 == Change log ==
 = 1.1 =
